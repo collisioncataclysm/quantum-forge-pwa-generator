@@ -1,0 +1,193 @@
+{
+    "fileType": {
+        "extension": ".qpwa",
+        "icon": "quantum-pwa",
+        "displayName": "Quantum PWA",
+        "description": "Progressive Web Application with Quantum Features"
+    },
+    "schema": {
+        "type": "object",
+        "required": ["app", "quantum", "copilot"],
+        "properties": {
+            "app": {
+                "type": "object",
+                "required": ["name", "version", "components"],
+                "properties": {
+                    "name": { "type": "string" },
+                    "version": { "type": "string" },
+                    "description": { "type": "string" },
+                    "components": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "required": ["name", "type"],
+                            "properties": {
+                                "name": { "type": "string" },
+                                "type": { "type": "string" },
+                                "state": { "type": "object" },
+                                "template": { "type": "string" }
+                            }
+                        }
+                    }
+                }
+            },
+            "quantum": {
+                "type": "object",
+                "required": ["state", "entanglement"],
+                "properties": {
+                    "state": {
+                        "type": "object",
+                        "properties": {
+                            "superposition": { "type": "boolean" },
+                            "entanglement": { "type": "boolean" },
+                            "optimization": { "type": "boolean" }
+                        }
+                    },
+                    "entanglement": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "required": ["components"],
+                            "properties": {
+                                "components": {
+                                    "type": "array",
+                                    "items": { "type": "string" }
+                                },
+                                "type": { "type": "string" }
+                            }
+                        }
+                    }
+                }
+            },
+            "copilot": {
+                "type": "object",
+                "required": ["features"],
+                "properties": {
+                    "features": {
+                        "type": "array",
+                        "items": { "type": "string" }
+                    },
+                    "suggestions": {
+                        "type": "object",
+                        "properties": {
+                            "inline": { "type": "boolean" },
+                            "completion": { "type": "boolean" },
+                            "documentation": { "type": "boolean" }
+                        }
+                    },
+                    "context": {
+                        "type": "object",
+                        "properties": {
+                            "workspace": { "type": "string" },
+                            "project": { "type": "string" },
+                            "dependencies": {
+                                "type": "array",
+                                "items": { "type": "string" }
+                            }
+                        }
+                    }
+                }
+            },
+            "pwa": {
+                "type": "object",
+                "required": ["manifest"],
+                "properties": {
+                    "manifest": {
+                        "type": "object",
+                        "required": ["name", "short_name"],
+                        "properties": {
+                            "name": { "type": "string" },
+                            "short_name": { "type": "string" },
+                            "start_url": { "type": "string" },
+                            "display": { "type": "string" },
+                            "theme_color": { "type": "string" },
+                            "background_color": { "type": "string" },
+                            "icons": {
+                                "type": "array",
+                                "items": {
+                                    "type": "object",
+                                    "required": ["src", "sizes", "type"],
+                                    "properties": {
+                                        "src": { "type": "string" },
+                                        "sizes": { "type": "string" },
+                                        "type": { "type": "string" }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "serviceWorker": {
+                        "type": "object",
+                        "properties": {
+                            "strategy": { "type": "string" },
+                            "precache": { "type": "boolean" },
+                            "runtime": { "type": "boolean" }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "syntax": {
+        "scopeName": "source.quantum-pwa",
+        "patterns": [
+            {
+                "name": "quantum.state",
+                "match": "\\b(superposition|entanglement|optimization)\\b",
+                "captures": {
+                    "1": { "name": "keyword.quantum.state" }
+                }
+            },
+            {
+                "name": "component.definition",
+                "begin": "\\bcomponent\\s+(\\w+)\\s*\\{",
+                "end": "\\}",
+                "beginCaptures": {
+                    "1": { "name": "entity.name.component" }
+                },
+                "patterns": [
+                    {
+                        "name": "component.property",
+                        "match": "\\b(state|template|quantum)\\b"
+                    }
+                ]
+            },
+            {
+                "name": "copilot.directive",
+                "match": "@copilot\\s+(\\w+)",
+                "captures": {
+                    "1": { "name": "keyword.copilot.directive" }
+                }
+            }
+        ]
+    },
+    "snippets": {
+        "Component": {
+            "prefix": "qpwa-component",
+            "body": [
+                "component ${1:name} {",
+                "    state: {",
+                "        ${2:// State definition}",
+                "    },",
+                "    template: `",
+                "        ${3:<!-- Component template -->}",
+                "    `",
+                "}"
+            ],
+            "description": "Create a new Quantum PWA component"
+        },
+        "Quantum State": {
+            "prefix": "qpwa-state",
+            "body": [
+                "quantum {",
+                "    state: {",
+                "        superposition: ${1:true},",
+                "        entanglement: ${2:true}",
+                "    },",
+                "    optimization: ${3:true}",
+                "}"
+            ],
+            "description": "Define quantum state for a component"
+        }
+    }
+}
